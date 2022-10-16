@@ -11,7 +11,7 @@ public class Main {
     private final static File FILE_URL = new File("C:\\LICENCE 3\\Algorithmique 2\\formule-2-sat.txt");
 
     public static void main(String[] args) throws IOException {
-
+        // Lire le fichier text et donné (l1,l2), ajouter des arcs -l1 --> l2 & -l2 --> l1 dans la graphe
         FileReader fr = new FileReader(FILE_URL);
         BufferedReader br = new BufferedReader(fr);
         String line;
@@ -33,6 +33,7 @@ public class Main {
             graph.addArc(literalToVertex(source2), literalToVertex(dest2), index++);
 
         }
+        //Afficher des graphes et des composantes fortement connexes, vérifier la formule P est satisfiable ou non
         Graph graphTrans = graph.graphTranspose();
         System.out.println("Graph G-origine: ");
         System.out.println(graph);
@@ -51,11 +52,12 @@ public class Main {
             return (s/2)+1;
         return -(s-1)/2;
     }
+    //La méthode pour vérifier la 2-Satisfiabilité
     public  static boolean is2Satisfiable(ArrayList<LinkedList<Integer>> components){
-        for (int i = 0; i < components.size(); i++) {
-            for (Integer e : components.get(i)) {
+        for (LinkedList<Integer> component : components) {
+            for (Integer e : component) {
                 //LA FORMULE EST INSATISFAISANTE s'il existe -x et x dans le même SCC
-                if(components.get(i).contains(-vertexToLiteral(e))){
+                if (component.contains(-vertexToLiteral(e))) {
                     System.out.println("The given expression is unsatisfiable");
                     return false;
                 }

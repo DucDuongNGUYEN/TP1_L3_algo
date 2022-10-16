@@ -64,10 +64,9 @@ public class Graph<Label> {
         Graph<Integer> graph = new Graph(cardinal);
         int index = 0;
         for (int i = 0; i < this.incidency.size(); i++) {
-            int dest = i;
             LinkedList<Edge> edges = incidency.get(i);
             for (Edge edge : edges) {
-                graph.addArc(edge.destination, dest, index++);
+                graph.addArc(edge.destination, i, index++);
             }
         }
         return graph;
